@@ -94,7 +94,7 @@ export default function QuestionPage() {
       : "";
 
     return (
-      <Card title={null}>
+      <Card title={null} style={{ margin: 0, border: "none" }}>
         <Question
           question={questionData}
           showPyo={showPyo}
@@ -113,7 +113,6 @@ export default function QuestionPage() {
       <div
         style={{
           minHeight: "100vh",
-          padding: "32px",
           backgroundColor: isDark ? "#141414" : "#f5f5f5",
         }}
       >
