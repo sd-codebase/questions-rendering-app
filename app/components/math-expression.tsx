@@ -1,0 +1,106 @@
+import { Image } from "antd";
+import "katex/dist/katex.min.css";
+import React, { useEffect } from "react";
+import Latex from "react-latex-next";
+import TableContent from "./table-content";
+
+const MathExpressions = ({
+  exp,
+  resourceUrl,
+}: {
+  exp: string;
+  resourceUrl: string;
+}) => {
+  const [snippets, setSnippets] = React.useState<Record<string, any>[]>([]);
+
+  useEffect(() => {
+    const snippets = splitContent(exp);
+    console.log({ snippets });
+    setSnippets(snippets);
+  }, [exp]);
+
+  function splitContent(content: string) {
+    // replace new line(\n) with \nl (except between $ and 4 or $$ and $$)
+    content = content.replace(
+      /(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$|\{\{table_[\s\S]*?_table\}\})|\n/g,
+      (match, mathBlock) => {
+        return mathBlock ? match : "\\nl";
+      }
+    );
+
+    const regexToReplaceImgStart = "{{img_";
+    const regexToReplaceImgEnd = "_img}}";
+    const regexToReplaceTableStart = "{{table_";
+    const regexToReplaceTableEnd = "_table}}";
+    const parts = content
+      .replaceAll("\\nl", "###")
+      .replaceAll(regexToReplaceImgStart, "###IMG_URL_")
+      .replaceAll(regexToReplaceImgEnd, "###")
+      .replaceAll(regexToReplaceTableStart, "###TABEL_")
+      .replaceAll(regexToReplaceTableEnd, "###")
+      .split("###")
+      .map((part) => {
+        if (part.startsWith("IMG_URL_")) {
+          const img = part.replace("IMG_URL_", "");
+          return { type: "image", img };
+        } else if (part.startsWith("TABEL_")) {
+          const tblContent = part.replace("TABEL_", "");
+          return { type: "table", tblContent };
+        }
+        if (part.trim() === "") {
+          return { type: "empty" };
+        }
+        return { type: "latex", latex: part };
+      });
+    // .filter(
+    //   (part) => part.latex || part.img?.trim() || part.tblContent?.trim()
+    // );
+
+    console.log(parts);
+    return parts;
+  }
+
+  if (!snippets.length) return null;
+
+  return (
+    <div>
+      {snippets?.map((snippet, index) => {
+        if (snippet.type === "image") {
+          return (
+            <div key={index} style={{ margin: "1rem 0" }}>
+              <div>
+                <Image
+                  alt=""
+                  src={`${resourceUrl}/${snippet.img}`}
+                  fallback="https://ondc.bajajfinservmarkets.in/_next/static/media/no-preview.794963f5.jpg"
+                  style={{
+                    maxHeight: 200,
+                    maxWidth: 300,
+                    borderRadius: 8,
+                  }}
+                />
+              </div>
+            </div>
+          );
+        } else if (snippet.type === "table") {
+          return (
+            <TableContent
+              key={index}
+              tableContent={snippet.tblContent}
+              resourceUrl={resourceUrl}
+            />
+          );
+        } else if (snippet.type === "empty") {
+          return <div key={index} style={{ height: "16px", width: "16px" }} />;
+        }
+        return (
+          <div key={index}>
+            <Latex>{snippet.latex}</Latex>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default MathExpressions;
