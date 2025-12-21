@@ -14,7 +14,10 @@ interface QuestionProps {
 export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
   return (
     <Flex vertical style={{ flex: 1 }}>
-      <MathExpression exp={question.question} resourceUrl={resourceUrl} />
+      <MathExpression
+        exp={question.question?.replaceAll("{{INTEGER ANSWER}}", "....")}
+        resourceUrl={resourceUrl}
+      />
       {showPyo?.toLowerCase() === "yes" && <Text strong>{question.pyo}</Text>}
       {Object.keys(question.options || {})?.length > 0 ? (
         <>
