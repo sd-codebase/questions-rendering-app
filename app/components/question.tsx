@@ -15,7 +15,7 @@ export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
   return (
     <Flex vertical style={{ flex: 1 }}>
       <MathExpression
-        exp={question.question?.replaceAll("{{INTEGER ANSWER}}", "....")}
+        exp={question.question?.replaceAll("{{INTEGER_ANSWER}}", ".......")}
         resourceUrl={resourceUrl}
       />
       {showPyo?.toLowerCase() === "yes" && <Text strong>{question.pyo}</Text>}
