@@ -13,14 +13,14 @@ interface QuestionProps {
 
 export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
   return (
-    <Flex vertical style={{ flex: 1, fontSize: "1.5rem" }} gap={"2rem"}>
+    <Flex vertical style={{ flex: 1, fontSize: "1rem" }} gap={"1.5rem"}>
       <MathExpression
         exp={question.question?.replaceAll("{{INTEGER_ANSWER}}", ".......")}
         resourceUrl={resourceUrl}
       />
       {showPyo?.toLowerCase() === "yes" && (
         <Space style={{ margin: "1rem 0" }}>
-          <Text strong style={{ fontSize: "1.5rem" }}>
+          <Text strong style={{ fontSize: "1rem" }}>
             {question.pyo}
           </Text>
         </Space>
@@ -34,7 +34,7 @@ export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
                 style={{ marginBottom: "0.5rem" }}
                 gap={"0.5rem"}
               >
-                <Text strong style={{ fontSize: "1.5rem" }}>
+                <Text strong style={{ fontSize: "1rem" }}>
                   {opKey})
                 </Text>
 
