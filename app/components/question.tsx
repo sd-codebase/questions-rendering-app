@@ -1,7 +1,7 @@
 "use client";
 
 import MathExpression from "./math-expression";
-import { Typography, Flex } from "antd";
+import { Typography, Flex, Space } from "antd";
 
 const { Text } = Typography;
 
@@ -13,12 +13,18 @@ interface QuestionProps {
 
 export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
   return (
-    <Flex vertical style={{ flex: 1 }}>
+    <Flex vertical style={{ flex: 1, fontSize: "1.5rem" }} gap={"2rem"}>
       <MathExpression
         exp={question.question?.replaceAll("{{INTEGER_ANSWER}}", ".......")}
         resourceUrl={resourceUrl}
       />
-      {showPyo?.toLowerCase() === "yes" && <Text strong>{question.pyo}</Text>}
+      {showPyo?.toLowerCase() === "yes" && (
+        <Space style={{ margin: "1rem 0" }}>
+          <Text strong style={{ fontSize: "1.5rem" }}>
+            {question.pyo}
+          </Text>
+        </Space>
+      )}
       {Object.keys(question.options || {})?.length > 0 ? (
         <>
           {Object.keys(question.options)?.map(
@@ -26,9 +32,12 @@ export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
               <Flex
                 key={index}
                 style={{ marginBottom: "0.5rem" }}
-                gap={"0.25rem"}
+                gap={"0.5rem"}
               >
-                {opKey})
+                <Text strong style={{ fontSize: "1.5rem" }}>
+                  {opKey})
+                </Text>
+
                 <MathExpression
                   exp={question.options[opKey]}
                   resourceUrl={resourceUrl}
