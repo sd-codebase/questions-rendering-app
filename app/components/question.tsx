@@ -32,7 +32,7 @@ export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
                 style={{ marginBottom: "0.5rem" }}
                 gap={"0.25rem"}
               >
-                <Text strong style={{ fontSize: "1rem" }}>
+                <Text strong style={{ fontSize: "1rem", minWidth: "2rem" }}>
                   {opKey})
                 </Text>
 
