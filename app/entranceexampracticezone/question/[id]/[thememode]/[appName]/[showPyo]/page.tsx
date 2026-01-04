@@ -8,6 +8,7 @@ import { Question } from "@/app/components/question";
 
 const Urls = {
   jeemains: process.env.NEXT_PUBLIC_JEE_MAINS_BASE_URL,
+  jeeadvanced: process.env.NEXT_PUBLIC_JEE_ADVANCED_BASE_URL,
   neet: process.env.NEXT_PUBLIC_NEET_BASE_URL,
 };
 
