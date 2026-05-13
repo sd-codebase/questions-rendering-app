@@ -1,8 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>LaTeX Solution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>KaTeX Solution</title>
 
     <!-- KaTeX CSS -->
     <link
@@ -16,30 +18,71 @@
       src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
     ></script>
 
-    <!-- Auto-render extension -->
+    <!-- Auto Render -->
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-      onload="renderMathInElement(document.body);"
     ></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        padding: 40px;
+        line-height: 1.8;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        text-align: left;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+      }
+
+      .katex-display {
+        display: block;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 4px 0;
+        text-align: left !important;
+      }
+
+      .katex-display > .katex {
+        text-align: left !important;
+      }
+
+      .katex {
+        white-space: normal !important;
+      }
+    </style>
   </head>
 
   <body>
-    <h2>Solution</h2>
-    <div>
-      $$ \begin{aligned} &\textbf{Step 1: Interpret molarity}\\ &3\ \mathrm{M}\
-      \text{means } 3\ \mathrm{mol\ NaCl} \text{ present in } 1\ \mathrm{L\
-      solution}.\\ &\text{Density of solution} = 1.0\ \mathrm{g\,mL^{-1}}.\\
-      &\text{Mass of } 1\ \mathrm{L\ solution} = 1000\ \mathrm{g}.\\[8pt]
-      &\textbf{Step 2: Calculate mass of solute}\\ &\text{Molar mass of }
-      \mathrm{NaCl} = 23 + 35.5 = 58.5\ \mathrm{g\,mol^{-1}}.\\ &\text{Mass of }
-      \mathrm{NaCl} = 3 \times 58.5 = 175.5\ \mathrm{g}.\\[8pt] &\textbf{Step 3:
-      Calculate mass of solvent}\\ &\text{Mass of solvent} = 1000 - 175.5 =
-      824.5\ \mathrm{g}.\\ &= 0.8245\ \mathrm{kg}.\\[8pt] &\textbf{Step 4:
-      Calculate molality}\\ &\text{Molality} = \frac{3}{0.8245} = 3.64\
-      \mathrm{m}.\\[8pt] &\textbf{Step 5: Express in required form}\\ &3.64\
-      \mathrm{m} = 364 \times 10^{-2}\ \mathrm{m}.\\[6pt] &\boxed{\textbf{364}}
-      \end{aligned} $$
+    <div class="container">
+      $$ \textbf{Solution} $$ $$ \begin{aligned} 1.\;& \text{Given radius of
+      sphere is} \\ & r = (7.50 \pm 0.85)\,\text{cm}. \end{aligned} $$ $$
+      \begin{aligned} 2.\;& \text{Volume of sphere is proportional to} \\ & r^3.
+      \end{aligned} $$ $$ \begin{aligned} 3.\;& \text{Hence percentage error in
+      volume is} \\ & \frac{\Delta V}{V}\times100 = 3\frac{\Delta
+      r}{r}\times100. \end{aligned} $$ $$ \begin{aligned} 4.\;&
+      \text{Substituting values,} \\ & x = 3\times\frac{0.85}{7.50}\times100 \\
+      & = 34. \end{aligned} $$ $$ \begin{aligned} 5.\;& \text{Therefore,
+      percentage error in volume} \\ & \text{is } 34\%. \end{aligned} $$ $$
+      \boxed{\text{Correct Option: }34} $$
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "\\(", right: "\\)", display: false },
+          ],
+        });
+      });
+    </script>
   </body>
 </html>
