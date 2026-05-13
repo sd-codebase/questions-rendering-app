@@ -36,7 +36,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
       headers: {
         "Content-Type": "application/json",
       },
-      next: { revalidate: 60 },
+      next: { revalidate: 3600 },
     });
 
     if (!response.ok) {
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
     return NextResponse.json(data, {
       status: 200,
       headers: {
-        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=300",
       },
     });
   } catch (error) {
