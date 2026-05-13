@@ -1,29 +1,14 @@
-<!doctype html>
+import { NextResponse } from "next/server";
+
+const html = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Solution</title>
-
-    <!-- KaTeX CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-    />
-
-    <!-- KaTeX JS -->
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
-    ></script>
-
-    <!-- Auto Render -->
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    ></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -31,7 +16,6 @@
         padding: 40px;
         line-height: 1.8;
       }
-
       .container {
         width: 100%;
         max-width: 100%;
@@ -41,7 +25,6 @@
         padding: 30px;
         border-radius: 12px;
       }
-
       .katex-display {
         display: block;
         overflow-x: auto;
@@ -49,41 +32,29 @@
         padding: 4px 0;
         text-align: left !important;
       }
-
       .katex-display > .katex {
         text-align: left !important;
       }
-
       .katex {
         white-space: normal !important;
       }
-
-      .loading {
-        color: #888;
-        font-style: italic;
-      }
-
-      .error {
-        color: #d32f2f;
-      }
+      .loading { color: #888; font-style: italic; }
+      .error { color: #d32f2f; }
     </style>
   </head>
-
   <body>
     <div class="container" id="solution-container">
       <span class="loading">Loading solution...</span>
     </div>
-
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get("id");
-        const appName = params.get("appName");
-        const container = document.getElementById("solution-container");
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get("id");
+        var appName = params.get("appName");
+        var container = document.getElementById("solution-container");
 
         if (!id || !appName) {
-          container.innerHTML =
-            '<span class="error">Missing required parameters: id and appName must be provided in the URL.</span>';
+          container.innerHTML = '<span class="error">Missing required parameters: id and appName must be provided in the URL.</span>';
           return;
         }
 
@@ -98,25 +69,29 @@
           })
           .then(function (json) {
             var latex = json.data && (json.data.solution || json.data.content || json.data.text);
-            if (typeof json.data === "string") {
-              latex = json.data;
-            }
-            if (!latex) {
-              throw new Error("Solution content not found in response");
-            }
+            if (typeof json.data === "string") latex = json.data;
+            if (!latex) throw new Error("Solution content not found in response");
             container.textContent = latex;
             renderMathInElement(container, {
               delimiters: [
                 { left: "$$", right: "$$", display: true },
-                { left: "\\(", right: "\\)", display: false },
+                { left: "\\\\(", right: "\\\\)", display: false },
               ],
             });
           })
           .catch(function (err) {
-            container.innerHTML =
-              '<span class="error">' + err.message + "</span>";
+            container.innerHTML = '<span class="error">' + err.message + "</span>";
           });
       });
     </script>
   </body>
-</html>
+</html>`;
+
+export async function GET() {
+  return new NextResponse(html, {
+    status: 200,
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+    },
+  });
+}
