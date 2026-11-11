@@ -14,6 +14,14 @@ export interface QuestionData {
   resources_directory: string;
   level: number;
   pyo: string;
+  // JEE Advanced only; null/absent for NEET and JEE Main.
+  type?: string | null;
+  paragraph?: QuestionParagraph | null;
+}
+
+export interface QuestionParagraph {
+  id: string;
+  content: string;
 }
 
 export interface QuestionApiResponse {

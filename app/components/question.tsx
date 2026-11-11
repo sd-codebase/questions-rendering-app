@@ -1,7 +1,7 @@
 "use client";
 
 import MathExpression from "./math-expression";
-import { Typography, Flex, Space } from "antd";
+import { Typography, Flex, Space, Divider } from "antd";
 
 const { Text } = Typography;
 
@@ -14,6 +14,16 @@ interface QuestionProps {
 export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
   return (
     <Flex vertical style={{ flex: 1, fontSize: "1rem" }} gap={"0.75rem"}>
+      {/* Passage (JEE Advanced comprehension questions only) */}
+      {question.paragraph?.content ? (
+        <>
+          <MathExpression
+            exp={question.paragraph.content}
+            resourceUrl={resourceUrl}
+          />
+          <Divider style={{ margin: "0.25rem 0" }} />
+        </>
+      ) : null}
       <MathExpression
         exp={question.question?.replaceAll("{{INTEGER_ANSWER}}", ".......")}
         resourceUrl={resourceUrl}
@@ -23,7 +33,12 @@ export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
           {question.pyo}
         </Text>
       )}
-      {Object.keys(question.options || {})?.length > 0 ? (
+      {/* Skip the option list when every option is empty (e.g. {"a":"","b":"",...}),
+          so no bare "a) b) c) d)" labels are shown. */}
+      {Object.keys(question.options || {})?.length > 0 &&
+      Object.values(question.options).some(
+        (v) => v !== null && v !== undefined && String(v).trim() !== ""
+      ) ? (
         <>
           {Object.keys(question.options)?.map(
             (opKey: string, index: number) => (
