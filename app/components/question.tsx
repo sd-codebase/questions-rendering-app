@@ -33,7 +33,12 @@ export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
           {question.pyo}
         </Text>
       )}
-      {Object.keys(question.options || {})?.length > 0 ? (
+      {/* Skip the option list when every option is empty (e.g. {"a":"","b":"",...}),
+          so no bare "a) b) c) d)" labels are shown. */}
+      {Object.keys(question.options || {})?.length > 0 &&
+      Object.values(question.options).some(
+        (v) => v !== null && v !== undefined && String(v).trim() !== ""
+      ) ? (
         <>
           {Object.keys(question.options)?.map(
             (opKey: string, index: number) => (
