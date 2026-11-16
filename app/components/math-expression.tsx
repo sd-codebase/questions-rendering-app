@@ -1,3 +1,4 @@
+import { imageSrc } from "./image-url";
 import { Image } from "antd";
 import "katex/dist/katex.min.css";
 import React, { useEffect } from "react";
@@ -71,7 +72,7 @@ const MathExpressions = ({
               <div>
                 <Image
                   alt=""
-                  src={`${resourceUrl}/${snippet.img}`}
+                  src={imageSrc(resourceUrl, snippet.img)}
                   fallback="https://ondc.bajajfinservmarkets.in/_next/static/media/no-preview.794963f5.jpg"
                   style={{
                     maxHeight: 200,

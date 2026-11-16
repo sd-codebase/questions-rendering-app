@@ -1,3 +1,4 @@
+import { imageSrc } from "./image-url";
 import React, { useEffect } from "react";
 import Latex from "react-latex-next";
 import "katex/dist/katex.min.css";
@@ -48,7 +49,7 @@ const CellContent = ({ exp, resourceUrl }: CellContentProps) => {
                 height={100}
                 width={"auto"}
                 alt=""
-                src={`${resourceUrl}/${snippet.img}`}
+                src={imageSrc(resourceUrl, snippet.img)}
               />
             </div>
           );
