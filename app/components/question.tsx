@@ -5,6 +5,10 @@ import { Typography, Flex, Space, Divider } from "antd";
 
 const { Text } = Typography;
 
+// Previous-year (exam / year) labels are hidden in every app for now
+// (Play Misleading Claims review, Nov 2026). Set to false to show them again.
+const HIDE_PYO = true;
+
 interface QuestionProps {
   question: Record<string, any>;
   showPyo: string;
@@ -28,7 +32,7 @@ export const Question = ({ question, showPyo, resourceUrl }: QuestionProps) => {
         exp={question.question?.replaceAll("{{INTEGER_ANSWER}}", ".......")}
         resourceUrl={resourceUrl}
       />
-      {showPyo?.toLowerCase() === "yes" && (
+      {!HIDE_PYO && showPyo?.toLowerCase() === "yes" && (
         <Text strong style={{ fontSize: "1rem" }}>
           {question.pyo}
         </Text>
